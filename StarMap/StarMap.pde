@@ -1,3 +1,9 @@
+/*
+  Name: Eoghan Quirke
+  Student No: C15507837
+  Date: 08/11/16
+*/
+
 ArrayList<Star> stars = new ArrayList<Star>();
 float offset = 50.0;
 boolean clicked;
@@ -8,10 +14,8 @@ String answer = "";
 void setup()
 {
   /*Setting size to 800 x 800 will not fit on screen for me
-  The window will not assume the correct width when set to this either
-  and I end up with a long narrow window. I had to do all the work in
-  500 x 500 but I tested and it seems to work in 800 by 800 if I run
-  in present mode*/
+  Only seemed to work in present mode So for speed's sake I did most
+  of it in 500 x 500, however every thing works the same in 800 x 800*/
   //size(500,500);
   size(800, 800);
   textAlign(CENTER, CENTER);
@@ -165,6 +169,6 @@ void drawLine()
 
 void writeAnswer()
 {
-  fill(171, 20, 149);
+  fill(255);
   text(answer, width/2, height - 30);
 }
