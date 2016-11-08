@@ -17,4 +17,10 @@ class Star
     this.zG = zG;
     this.absMag = absMag;
   }
+  
+  String toString()
+  {
+    return (String)(name + " " + habFlag + " " + distance
+    + " " + xG + " " + yG + " " + zG + " " +  absMag);
+  }
 }
