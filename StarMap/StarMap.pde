@@ -1,8 +1,19 @@
 ArrayList<Star> stars = new ArrayList<Star>();
 float offset = 50.0;
+boolean clicked;
+Star star1;
+Star star2;
+String answer = "";
+
 void setup()
 {
-  size(500, 500);
+  /*Setting size to 800 x 800 will not fit on screen for me
+  The window will not assume the correct width when set to this either
+  and I end up with a long narrow window. I had to do all the work in
+  500 x 500 but I tested and it seems to work in 800 by 800 if I run
+  in present mode*/
+  //size(500,500);
+  size(800, 800);
   textAlign(CENTER, CENTER);
   loadData();
   printStars();
@@ -13,7 +24,8 @@ void draw()
   background(0);
   drawGrid();
   plotStars();
-  
+  drawLine();
+  writeAnswer();
 }
 
 void printStars()
@@ -79,13 +91,80 @@ void plotStars()
     stroke(255, 255, 0);
     line(x - 5, y, x + 5, y);
     line(x, y - 5, x , y + 5);
+    textAlign(LEFT, CENTER);
+    fill(255);
+    text(stars.get(i).getName(), x + 5, y);
+    textAlign(CENTER, CENTER);
+    fill(0);
+    stars.get(i).setScreenPos(x,y);
 
   }
 }
 
-void mouseReleased()
+void mousePressed()
 {
-  for(int i = 0; i < stars.size(); i++)
+  float x, y;
+  float dist;
+  if(clicked)
   {
+    for(int i = 0; i < stars.size(); i++)
+    {
+      x = stars.get(i).getScreenX();
+      y = stars.get(i).getScreenY();
+      
+      if((mouseX > x - 10 && mouseX < x + 10) &&
+      (mouseY > y - 10 && mouseY < y + 10))
+      {
+        star2 = stars.get(i);
+        clicked = false;
+        dist = dist(star1.getX(), star1.getY(), star1.getZ(),
+        star2.getX(), star2.getY() , star2.getZ());
+        answer = "Distance from " + star1.getName()
+        + " to " + star2.getName() 
+        + " is " + dist + " parsecs";
+        break;
+      }
+
+    }
   }
+  else
+  {
+    for(int i = 0; i < stars.size(); i++)
+    {
+      star1 = null;
+      star2 = null;
+      x = stars.get(i).getScreenX();
+      y = stars.get(i).getScreenY();
+      
+      if((mouseX > x - 10 && mouseX < x + 10) &&
+      (mouseY > y - 10 && mouseY < y + 10))
+      {
+        star1 = stars.get(i);
+        clicked = true;
+        break;
+      }
+      
+    }
+  }
+}
+
+
+void drawLine()
+{
+  if(star1 != null && star2 != null)
+  {
+    line(star1.getScreenX(), star1.getScreenY(),
+    star2.getScreenX(), star2.getScreenY());
+  }
+  else if(star1 != null)
+  {
+    line(star1.getScreenX(), star1.getScreenY(),
+    mouseX, mouseY);
+  }
+}
+
+void writeAnswer()
+{
+  fill(171, 20, 149);
+  text(answer, width/2, height - 30);
 }

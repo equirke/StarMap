@@ -38,9 +38,24 @@ class Star
     return zG;
   }
   
-  void setScreenPos(float pX, float pY)
+  void setScreenPos(float xP, float yP)
   {
     this.xP = xP;
     this.yP = yP;
+  }
+  
+  float getScreenX()
+  {
+    return xP;
+  }
+  
+  float getScreenY()
+  {
+    return yP;
+  }
+  
+  String getName()
+  {
+    return name;
   }
 }
